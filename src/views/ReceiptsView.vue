@@ -3,6 +3,7 @@ import { onMounted, computed } from 'vue'
 import { useReceiptsStore } from '../stores/receipts'
 import ReceiptListItem from '../components/ReceiptListItem.vue'
 import { RouterLink } from 'vue-router'
+import MonthPicker from '../components/MonthPicker.vue'
 
 const store = useReceiptsStore()
 
@@ -26,7 +27,10 @@ function onDelete(id) {
         <div class="eyebrow">step 03</div>
         <h1>History</h1>
       </div>
-      <div class="month mono-num">{{ store.receipts.length }} receipts</div>
+      <div style="display:flex; align-items:center; gap:12px;">
+        <MonthPicker :model-value="store.month" @update:model-value="store.setMonth" />
+        <span class="month mono-num">{{ store.receipts.length }} receipts</span>
+      </div>
     </header>
 
     <p v-if="store.error" class="error">{{ store.error }}</p>

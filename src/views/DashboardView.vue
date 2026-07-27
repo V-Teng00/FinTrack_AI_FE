@@ -4,6 +4,7 @@ import { useReceiptsStore } from '../stores/receipts'
 import StatCard from '../components/StatCard.vue'
 import SpendingChart from '../components/SpendingChart.vue'
 import CategoryChart from '../components/CategoryChart.vue'
+import MonthPicker from '../components/MonthPicker.vue'
 
 const store = useReceiptsStore()
 
@@ -26,7 +27,7 @@ const savingsRate = computed(() => {
         <div class="eyebrow">monthly statement</div>
         <h1>Dashboard</h1>
       </div>
-      <div class="month mono-num">{{ store.month }}</div>
+      <MonthPicker :model-value="store.month" @update:model-value="store.setMonth" />
     </header>
 
     <p v-if="store.error" class="error">{{ store.error }}</p>

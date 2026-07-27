@@ -16,6 +16,12 @@ export const useReceiptsStore = defineStore('receipts', {
   }),
 
   actions: {
+    setMonth(month) {
+      this.month = month
+      this.fetchReceipts()
+      this.fetchSummary()
+    },
+
     async fetchReceipts() {
       this.loading = true
       this.error = null
@@ -24,7 +30,7 @@ export const useReceiptsStore = defineStore('receipts', {
           this.receipts = mockReceipts
         } else {
           const { data } = await receiptsApi.list(this.month)
-          this.receipts = data
+          this.receipts = data.data
         }
       } catch (e) {
         this.error = 'Could not load receipts. Is the backend running?'
@@ -52,7 +58,6 @@ export const useReceiptsStore = defineStore('receipts', {
 
     async uploadReceipt(file, onProgress) {
       if (USE_MOCK) {
-        // simulate latency + extraction result in mock mode
         await new Promise((r) => setTimeout(r, 900))
         const fake = {
           id: Date.now(),
