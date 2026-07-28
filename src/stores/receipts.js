@@ -9,6 +9,7 @@ function currentMonth() {
 export const useReceiptsStore = defineStore('receipts', {
   state: () => ({
     month: currentMonth(),
+    incomeHistory: [],
     receipts: [],
     summary: null,
     loading: false,
@@ -20,6 +21,27 @@ export const useReceiptsStore = defineStore('receipts', {
       this.month = month
       this.fetchReceipts()
       this.fetchSummary()
+    },
+
+    async fetchIncomeHistory() {
+      try {
+        const { data } = await dashboardApi.incomeHistory()
+        this.incomeHistory = data.data
+      } catch (e) {
+        // non-fatal — expense history still works if this fails
+      }
+    },
+
+    async addIncome(source, amount, notes) {
+      await dashboardApi.addIncome(this.month, source, amount, notes)
+      await this.fetchSummary()
+      await this.fetchIncomeHistory()
+    },
+
+    async deleteIncome(id) {
+      await dashboardApi.deleteIncome(id)
+      await this.fetchSummary()
+      await this.fetchIncomeHistory()
     },
 
     async fetchReceipts() {

@@ -56,6 +56,15 @@ export const dashboardApi = {
   summary(month) {
     return client.get('/dashboard/summary', { params: { month } })
   },
+  addIncome(month, source, amount, notes) {
+    return client.post('/dashboard/income', { month, source, amount, notes })
+  },
+  deleteIncome(id) {
+    return client.delete(`/dashboard/income/${id}`)
+  },
+  incomeHistory() {
+    return client.get('/dashboard/income-history')
+  },
 }
 
 export const chatApi = {

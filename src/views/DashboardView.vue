@@ -5,6 +5,7 @@ import StatCard from '../components/StatCard.vue'
 import SpendingChart from '../components/SpendingChart.vue'
 import CategoryChart from '../components/CategoryChart.vue'
 import MonthPicker from '../components/MonthPicker.vue'
+import IncomeCard from '../components/IncomeCard.vue'
 
 const store = useReceiptsStore()
 
@@ -14,9 +15,9 @@ onMounted(() => {
 
 const fmt = (n) => `RM ${Number(n || 0).toLocaleString('en-MY', { minimumFractionDigits: 2 })}`
 
-const savingsRate = computed(() => {
-  if (!store.summary || !store.summary.income) return '—'
-  return `${Math.round((store.summary.savings / store.summary.income) * 100)}% of income`
+const savingsHint = computed(() => {
+  if (!store.summary || !store.summary.income) return 'Set an income to calculate savings'
+  return `${fmt(store.summary.income)} income − ${fmt(store.summary.total_spending)} spent`
 })
 </script>
 
@@ -34,11 +35,11 @@ const savingsRate = computed(() => {
 
     <section class="stats">
       <StatCard label="Total spending" :value="fmt(store.summary?.total_spending)" :rotate="-0.6" />
-      <StatCard label="Income" :value="fmt(store.summary?.income)" tone="green" :rotate="0.4" />
+      <IncomeCard />
       <StatCard
         label="Savings"
         :value="fmt(store.summary?.savings)"
-        :hint="savingsRate"
+        :hint="savingsHint"
         tone="green"
         :rotate="-0.3"
       />

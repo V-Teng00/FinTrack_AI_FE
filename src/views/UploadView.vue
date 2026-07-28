@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { useReceiptsStore } from '../stores/receipts'
 import CameraCapture from '../components/CameraCapture.vue'
+import { RouterLink } from 'vue-router'
 
 const store = useReceiptsStore()
 
@@ -79,6 +80,7 @@ function reset() {
         <button class="btn primary" @click="pickFile">Choose file</button>
         <button class="btn" @click="showCamera = true">Use camera</button>
       </div>
+      <RouterLink to="/add-manual" class="manual-link">or enter it manually</RouterLink>
       <input ref="fileInput" type="file" accept="image/*" class="hidden-input" @change="onFileChange" />
     </div>
 
@@ -250,6 +252,19 @@ function reset() {
 .fields .total {
   font-size: 18px;
   color: var(--brand-green);
+}
+
+.manual-link {
+  display: block;
+  text-align: center;
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--brand-green-bright);
+  text-decoration: none;
+}
+
+.manual-link:hover {
+  text-decoration: underline;
 }
 
 @media (max-width: 640px) {

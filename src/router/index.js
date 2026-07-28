@@ -25,6 +25,16 @@ const routes = [
     name: 'chat',
     component: () => import('../views/ChatbotView.vue'),
   },
+  {
+    path: '/add-manual',
+    name: 'add-manual',
+    component: () => import('../views/ManualEntryView.vue'),
+  },
+  {
+    path: '/add-income',
+    name: 'add-income',
+    component: () => import('../views/IncomeEntryView.vue'),
+  },
 ]
 
 const router = createRouter({
