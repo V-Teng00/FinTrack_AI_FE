@@ -35,6 +35,10 @@ const routes = [
     name: 'add-income',
     component: () => import('../views/IncomeEntryView.vue'),
   },
+  { path: '/goals', 
+    name: 'goals', 
+    component: () => import('../views/GoalsView.vue') 
+  },
 ]
 
 const router = createRouter({

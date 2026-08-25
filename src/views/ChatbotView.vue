@@ -1,5 +1,6 @@
 <script setup>
 import { ref, nextTick } from 'vue'
+import { RouterLink } from 'vue-router'
 import { useReceiptsStore } from '../stores/receipts'
 import { chatApi } from '../services/api'
 import { USE_MOCK, mockChatReply } from '../services/mockData'
@@ -61,6 +62,8 @@ async function scrollToBottom() {
       <h1>Ask FinTrack AI</h1>
       <p class="sub">Grounded in your actual receipts — not a generic chatbot guess.</p>
     </header>
+
+    <RouterLink to="/goals" class="chip">Set budgets</RouterLink>
 
     <div class="chips">
       <button v-for="s in suggestions" :key="s" class="chip" @click="send(s)">{{ s }}</button>
